@@ -1,174 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Casino - Welcome</title>
-    <style>
-        :root {
-            --gold: #f1c40f;
-            --odd: #e74c3c;
-            --even: #3498db;
-            --bg: #0b0b14;
-            --card: #16213e;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center;
-        }
-
-        /* --- NAVBAR --- */
-        .navbar {
-            width: 100%;
-            background: #1a1a2e;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 2px solid var(--gold);
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        .nav-item {
-            color: white;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        .nav-item:hover { color: var(--gold); }
-
-        /* --- UI COMPONENTS --- */
-        .balance-card {
-            background: var(--card);
-            padding: 15px 40px;
-            border: 2px solid var(--gold);
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.3rem;
-            margin: 20px 0;
-        }
-
-        .game-card {
-            background: var(--card);
-            width: 90%;
-            max-width: 380px;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        #predictionBoard {
-            display: none;
-            background: rgba(241, 196, 15, 0.1);
-            border: 1px dashed var(--gold);
-            color: var(--gold);
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .dice-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .dice {
-            width: 60px; height: 60px;
-            background: white; color: black;
-            border-radius: 12px;
-            font-size: 2rem; font-weight: bold;
-            display: flex; justify-content: center; align-items: center;
-        }
-
-        input {
-            width: 100%; padding: 12px; margin: 8px 0;
-            background: #0f3460; border: 1px solid #1a1a2e;
-            color: white; border-radius: 8px; text-align: center;
-            box-sizing: border-box;
-        }
-
-        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn {
-            flex: 1; padding: 15px; border: none; border-radius: 10px;
-            cursor: pointer; font-weight: bold; color: white;
-        }
-        .btn-odd { background: var(--odd); }
-        .btn-even { background: var(--even); }
-
-        /* --- MODAL SYSTEM --- */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            justify-content: center; align-items: center; z-index: 1000;
-        }
-
-        .modal-box {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid var(--gold);
-            max-width: 320px;
-            width: 85%;
-        }
-
-        /* SOI CẦU */
-        .history-list {
-            display: flex; gap: 8px; justify-content: center; margin-top: 10px;
-        }
-        .dot {
-            width: 30px; height: 30px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 12px; font-weight: bold;
-        }
-        .dot-odd { background: var(--odd); }
-        .dot-even { background: var(--even); }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Elite Casino Mobile</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body onload="showWelcome()">
 
     <nav class="navbar">
-        <div class="nav-item" onclick="showTroll()">Nạp tiền</div>
-        <div class="nav-item" onclick="showTroll()">Rút tiền</div>
-        <div class="nav-item" onclick="showCodeInput()">Mã KM</div>
-        <div class="nav-item" onclick="saveGame()">LƯU</div>
+        <div class="nav-item" onclick="showTroll()">NẠP TIỀN</div>
+        <div class="nav-item" onclick="showTroll()">RÚT TIỀN</div>
+        <div class="nav-item" onclick="showCodeInput()">MÃ KM</div>
+        <div class="nav-item" onclick="saveGame()" style="color: #f1c40f;">LƯU</div>
     </nav>
 
     <div class="balance-card">
-         Ví: <span id="money">1,000,000</span> VND
+         <span id="money">1,000,000</span> VND
     </div>
 
     <div class="game-card">
-        <div id="predictionBoard">DỰ ĐOÁN: <span id="hint">---</span></div>
+        <div id="predictionBoard">ADMIN DỰ BÁO: <span id="hint">---</span></div>
+        
         <div class="dice-row">
             <div class="dice" id="d1">?</div>
             <div class="dice" id="d2">?</div>
             <div class="dice" id="d3">?</div>
         </div>
-        <p>Tổng điểm: <span id="totalPoints" style="color: var(--gold);">0</span></p>
-        <input type="number" id="bet" placeholder="Tiền cược...">
+
+        <p class="total-info">Tổng điểm: <span id="totalPoints">0</span></p>
+        
+        <input type="number" id="bet" placeholder="Nhập tiền cược..." inputmode="numeric">
         
         <div class="btn-group">
-            <button class="btn btn-odd" onclick="play('ODD')">LẺ</button>
-            <button class="btn btn-even" onclick="play('EVEN')">CHẴN</button>
+            <button class="btn-play btn-odd" onclick="play('ODD')">LẺ</button>
+            <button class="btn-play btn-even" onclick="play('EVEN')">CHẴN</button>
         </div>
-        <p id="msg" style="margin-top:15px; font-weight:bold;"></p>
+        <p id="msg"></p>
     </div>
 
-    <div style="margin-top:20px; text-align:center;">
-        <p style="font-size: 12px; color: #888;">SOI CẦU (LATEST 10)</p>
+    <div class="history-section">
+        <p>SOI CẦU (10 VÁN GẦN NHẤT)</p>
         <div class="history-list" id="history"></div>
     </div>
 
@@ -176,134 +50,6 @@
         <div class="modal-box" id="modalBody"></div>
     </div>
 
-    <script>
-        let wallet = parseInt(localStorage.getItem('casino_balance')) || 1000000;
-        let adminHint = "";
-        let logs = [];
-
-        // Hiển thị tiền ngay khi tải trang
-        document.getElementById('money').innerText = wallet.toLocaleString();
-
-        // THÔNG BÁO CHÀO MỪNG
-        function showWelcome() {
-            const modal = document.getElementById('mainModal');
-            const body = document.getElementById('modalBody');
-            body.innerHTML = `
-                <h2 style="color:var(--gold)">XIN CHÀO!</h2>
-                <p style="line-height:1.6;">Chào mừng bạn đến với game vui không khuyến khích nạp tiền và muốn lưu phải nhấn nút.</p>
-                <button onclick="closeModal()" style="background:var(--gold); border:none; padding:12px 30px; border-radius:8px; cursor:pointer; font-weight:bold; margin-top:10px;">BẮT ĐẦU CHƠI</button>
-            `;
-            modal.style.display = 'flex';
-        }
-
-        // HÀM LƯU GAME
-        function saveGame() {
-            localStorage.setItem('casino_balance', wallet);
-            const modal = document.getElementById('mainModal');
-            const body = document.getElementById('modalBody');
-            body.innerHTML = `
-                <p style="color: #2ecc71; font-weight: bold; font-size: 1.1rem;">Đã lưu số dư thành công!</p>
-                <p>Tiền đã lưu: <b>${wallet.toLocaleString()}</b> VND</p>
-                <button onclick="closeModal()" style="background:var(--gold); border:none; padding:8px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-top:10px;">Đóng</button>
-            `;
-            modal.style.display = 'flex';
-        }
-
-        function showCodeInput() {
-            const modal = document.getElementById('mainModal');
-            const body = document.getElementById('modalBody');
-            body.innerHTML = `
-                <h3 style="color:var(--gold)">NHẬP MÃ KHUYẾN MÃI</h3>
-                <input type="text" id="popupCodeInp" placeholder="Nhập mã tại đây...">
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <button onclick="checkCodePopup()" style="flex:1; background:var(--gold); border:none; padding:10px; border-radius:8px; font-weight:bold; cursor:pointer;">XÁC NHẬN</button>
-                    <button onclick="closeModal()" style="flex:1; background:#444; color:white; border:none; padding:10px; border-radius:8px; font-weight:bold; cursor:pointer;">ĐÓNG</button>
-                </div>
-            `;
-            modal.style.display = 'flex';
-        }
-
-        function showTroll() {
-            const modal = document.getElementById('mainModal');
-            const body = document.getElementById('modalBody');
-            body.innerHTML = `
-                <p>Đây là game giải trí không nạp cũng như rút được :))</p>
-                <button onclick="closeModal()" style="background:var(--gold); border:none; padding:8px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-top:10px;">Đóng</button>
-            `;
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() { document.getElementById('mainModal').style.display = 'none'; }
-
-        function checkCodePopup() {
-            let c = document.getElementById('popupCodeInp').value.trim();
-            if(c === "kemanh") {
-                document.getElementById('predictionBoard').style.display = 'block';
-                if(!adminHint) adminHint = Math.random() > 0.5 ? "ODD" : "EVEN";
-                document.getElementById('hint').innerText = adminHint === "ODD" ? "LẺ" : "CHẴN";
-                alert("Đã kích hoạt soi cầu Admin!");
-                closeModal();
-            } else if(c === "kietdepzai") {
-                wallet += 10000000000;
-                document.getElementById('money').innerText = wallet.toLocaleString();
-                alert("Bạn nhận được 10 Tỷ VND!");
-                closeModal();
-            } else {
-                alert("Mã không hợp lệ!");
-            }
-        }
-
-        function play(choice) {
-            let b = parseInt(document.getElementById('bet').value);
-            if(isNaN(b) || b <= 0 || b > wallet) { alert("Tiền cược lỗi!"); return; }
-            document.getElementById('msg').innerText = "Đang lắc...";
-            setTimeout(() => {
-                let d1, d2, d3, total, res;
-                if(adminHint !== "") {
-                    res = adminHint;
-                    do {
-                        d1 = Math.floor(Math.random()*6)+1; d2 = Math.floor(Math.random()*6)+1; d3 = Math.floor(Math.random()*6)+1;
-                        total = d1+d2+d3;
-                        var t = (total%2!==0) ? "ODD" : "EVEN";
-                    } while(t !== res);
-                } else {
-                    d1 = Math.floor(Math.random()*6)+1; d2 = Math.floor(Math.random()*6)+1; d3 = Math.floor(Math.random()*6)+1;
-                    total = d1+d2+d3;
-                    res = (total%2!==0) ? "ODD" : "EVEN";
-                }
-                document.getElementById('d1').innerText = d1;
-                document.getElementById('d2').innerText = d2;
-                document.getElementById('d3').innerText = d3;
-                document.getElementById('totalPoints').innerText = total;
-
-                if(choice === res) {
-                    wallet += b;
-                    document.getElementById('msg').innerText = "THẮNG!";
-                    document.getElementById('msg').style.color = "#2ecc71";
-                } else {
-                    wallet -= b;
-                    document.getElementById('msg').innerText = "THUA!";
-                    document.getElementById('msg').style.color = "#e74c3c";
-                }
-                document.getElementById('money').innerText = wallet.toLocaleString();
-                
-                logs.push(res);
-                if(logs.length > 10) logs.shift();
-                let hBox = document.getElementById('history');
-                hBox.innerHTML = "";
-                logs.forEach(i => {
-                    let d = document.createElement('div');
-                    d.className = `dot ${i === 'ODD' ? 'dot-odd' : 'dot-even'}`;
-                    d.innerText = i === 'ODD' ? 'L' : 'C';
-                    hBox.appendChild(d);
-                });
-
-                if(adminHint !== "") {
-                    adminHint = Math.random() > 0.5 ? "ODD" : "EVEN";
-                    document.getElementById('hint').innerText = adminHint === "ODD" ? "LẺ" : "CHẴN";
-                }
-            }, 600);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
